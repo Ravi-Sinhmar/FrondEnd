@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
 
+const BACKEND_URL = 
+  process.env.REACT_APP_NODE_ENV === 'development'
+    ? process.env.REACT_APP_DEVELOPMENT_BACKEND_URL
+    : process.env.REACT_APP_NODE_ENV === 'production'
+      ? process.env.REACT_APP_PRODUCTION_BACKEND_URL
+      : '';
+
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -10,9 +17,8 @@ const Login = () => {
     e.preventDefault();
     setLoading(true);
     setError(null);
-
     try {
-      const response = await fetch('https://social-parser-sih.onrender.com/login', {
+      const response = await fetch(`${BACKEND_URL}/login`, { 
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
