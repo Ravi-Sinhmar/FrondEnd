@@ -1,7 +1,13 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
 import './ShowPosts.css';
-import pic from './../../assets/Images/instaImg.jpeg';
+
+const BACKEND_URL = 
+  process.env.REACT_APP_NODE_ENV === 'development'
+    ? process.env.REACT_APP_DEVELOPMENT_BACKEND_URL
+    : process.env.REACT_APP_NODE_ENV === 'production'
+      ? process.env.REACT_APP_PRODUCTION_BACKEND_URL
+      : '';
 
 function ShowPost() {
 
@@ -18,7 +24,7 @@ function ShowPost() {
     const handleLogin = useCallback(async () => {
         try {
           setIsLoading(true);
-            const response = await axios.get('http://localhost:5000/login');
+            const response = await axios.get(`${BACKEND_URL}/login`);
             if (response.data.status === 'success') {
                 setIsLoggedIn(true);
                 setIsLoading(false)
@@ -44,7 +50,7 @@ function ShowPost() {
           setIsPost(false);
           setStatus("Status");
           setMessage("Message");
-            const response = await axios.post('http://localhost:5000/posts', {
+            const response = await axios.post(`${BACKEND_URL}/posts`, {
                 data: inputValue ,// Sending the input data
             });
             setStatus(response.data.status);
