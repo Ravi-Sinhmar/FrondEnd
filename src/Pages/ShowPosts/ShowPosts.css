@@ -25,6 +25,9 @@
     }
   }
   
+
+
+  
   @media (min-width: 900px) and (max-width: 1199px) {
     .ShowPost {
       grid-template-columns: repeat(3, 1fr); /* 3 columns for medium screens */
